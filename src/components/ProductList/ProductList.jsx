@@ -12,7 +12,6 @@ const ProductList = () => {
   const fetchProducts = async () => {
     try {
       const response = await axios.get('https://fakestoreapi.com/products');
-      // console.log(response);
       dispatch(setProducts(response?.data));
     } catch (error) {
       console.log(error);
@@ -24,7 +23,7 @@ const ProductList = () => {
   }, []);
 
   return (
-    <section className='ui grid container'>
+    <section className='ui grid container' style={{ marginTop: '40px' }}>
       <div className='column wide'>
         <div className='four ui link cards'>
           {products?.map((product) => {
