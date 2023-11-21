@@ -7,14 +7,13 @@ import { setProducts } from '../../redux/Product/actions';
 
 const ProductList = () => {
   const { products } = useSelector((state) => state.allProducts);
-  console.log(products);
   const dispatch = useDispatch();
 
   const fetchProducts = async () => {
     try {
       const response = await axios.get('https://fakestoreapi.com/products');
       // console.log(response);
-      dispatch(setProducts(response.data));
+      dispatch(setProducts(response?.data));
     } catch (error) {
       console.log(error);
     }
@@ -24,7 +23,17 @@ const ProductList = () => {
     fetchProducts();
   }, []);
 
-  return <section className='ui grid container'>{/* <Product /> */}</section>;
+  return (
+    <section className='ui grid container'>
+      <div className='column wide'>
+        <div className='four ui link cards'>
+          {products?.map((product) => {
+            return <Product key={product.id} product={product} />;
+          })}
+        </div>
+      </div>
+    </section>
+  );
 };
 
 export default ProductList;

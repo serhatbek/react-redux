@@ -1,19 +1,17 @@
 import PropTypes from 'prop-types';
-import { useSelector } from 'react-redux';
 
-const Product = () => {
-  const { products } = useSelector((state) => state.allProducts);
-  const { title, category } = products[0];
+const Product = ({ product }) => {
+  const { title, price, category, image } = product;
 
   return (
-    <div className='four column wide'>
-      <div className='ui link cards'>
-        <div className='card'>
-          <div className='image'></div>
-          <div className='content'>
-            <div className='header'>{title}</div>
-          </div>
-        </div>
+    <div className='card'>
+      <div className='image'>
+        <img src={image} alt={title} />
+      </div>
+      <div className='content'>
+        <div className='header'>{title}</div>
+        <div className='meta price'>$ {price}</div>
+        <div className='meta'>{category}</div>
       </div>
     </div>
   );
@@ -21,4 +19,6 @@ const Product = () => {
 
 export default Product;
 
-Product.propTypes = {};
+Product.propTypes = {
+  product: PropTypes.object,
+};

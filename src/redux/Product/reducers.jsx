@@ -1,13 +1,8 @@
 import actions from './actions';
 
 const initialState = {
-  products: [
-    {
-      id: 1,
-      title: 'Serhat',
-      category: 'Developer',
-    },
-  ],
+  products: [],
+  selectedProduct: null,
 };
 
 const reducer = (state = initialState, action) => {
@@ -22,14 +17,14 @@ const reducer = (state = initialState, action) => {
     case actions.SELECTED_PRODUCT: {
       return {
         ...state,
-        products: action.payload,
+        selectedProduct: action.payload,
       };
     }
 
     case actions.REMOVE_SELECTED_PRODUCT: {
       return {
         ...state,
-        products: action.payload,
+        selectedProduct: null,
       };
     }
 
