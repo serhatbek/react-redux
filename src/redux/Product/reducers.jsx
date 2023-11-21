@@ -13,15 +13,24 @@ const initialState = {
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case actions.SET_PRODUCTS: {
-      return {};
+      return {
+        ...state,
+        products: action.payload,
+      };
     }
 
     case actions.SELECTED_PRODUCT: {
-      return {};
+      return {
+        ...state,
+        products: action.payload,
+      };
     }
 
     case actions.REMOVE_SELECTED_PRODUCT: {
-      return {};
+      return {
+        ...state,
+        products: action.payload,
+      };
     }
 
     default:

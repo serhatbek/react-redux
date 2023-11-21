@@ -1,3 +1,4 @@
-export { default as Header } from '../components/Header/Header';
-export { default as ProductList } from '../components/ProductList/ProductList';
-export { default as ProductDetail } from '../components/ProductDetail/ProductDetail';
+export { default as Header } from './Header/Header';
+export { default as ProductList } from './ProductList/ProductList';
+export { default as Product } from './Product/Product';
+export { default as ProductDetail } from './ProductDetail/ProductDetail';
