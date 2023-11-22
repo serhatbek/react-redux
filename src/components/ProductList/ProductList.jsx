@@ -2,10 +2,12 @@ import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { Product } from '../index';
 import axios from 'axios';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { setProducts } from '../../redux/Product/actions';
 
 const ProductList = () => {
+  const [isError, setIsError] = useState(false);
+  const [errorDesc, setErrorDesc] = useState('');
   const { products, isLoading } = useSelector((state) => state.allProducts);
   const dispatch = useDispatch();
   const fetchProducts = async () => {
@@ -13,7 +15,8 @@ const ProductList = () => {
       const response = await axios.get('https://fakestoreapi.com/products');
       dispatch(setProducts(response?.data));
     } catch (error) {
-      console.log(error);
+      setIsError(true);
+      setErrorDesc(error.message);
     }
   };
 
@@ -21,10 +24,19 @@ const ProductList = () => {
     fetchProducts();
   }, []);
 
-  if (isLoading) {
+  if (isError) {
     return (
-      <div className='loading'>
-        <div className='lds-ripple'>
+      <div className='ui container'>
+        <h1>Page Not Found!</h1>
+        <p>{errorDesc}</p>
+      </div>
+    );
+  }
+
+  if (isLoading || products.length === 0) {
+    return (
+      <div className='loading' style={{ display: 'flex ' }}>
+        <div className='lds-ripple' style={{ margin: '0 auto' }}>
           <div></div>
           <div></div>
         </div>

@@ -27,7 +27,7 @@ const reducer = (state = initialState, action) => {
     case actions.REMOVE_SELECTED_PRODUCT: {
       return {
         ...state,
-        selectedProduct: null,
+        selectedProduct: {},
       };
     }
 

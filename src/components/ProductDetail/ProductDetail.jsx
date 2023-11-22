@@ -1,10 +1,16 @@
-import { useEffect } from 'react';
-import { selectProduct } from '../../redux/Product/actions';
+import axios from 'axios';
+import { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
-import axios from 'axios';
+import {
+  selectProduct,
+  removeSelectedProduct,
+} from '../../redux/Product/actions';
+import { Link } from 'react-router-dom';
 
 const ProductDetail = () => {
+  const [isError, setIsError] = useState(false);
+  const [errorDesc, setErrorDesc] = useState('');
   const { selectedProduct, isLoading } = useSelector(
     (state) => state.allProducts
   );
@@ -19,7 +25,8 @@ const ProductDetail = () => {
       );
       dispatch(selectProduct(response?.data));
     } catch (error) {
-      console.log(error);
+      setIsError(true);
+      setErrorDesc(error.message);
     }
   };
 
@@ -27,19 +34,33 @@ const ProductDetail = () => {
     if (productId && productId !== '') {
       fetchProductDetail();
     }
+
+    return () => {
+      dispatch(removeSelectedProduct());
+    };
   }, [productId]);
 
-  const { id, title, price, category, description, image } = selectedProduct;
-  if (isLoading) {
+  if (isError) {
+    return (
+      <div className='ui container'>
+        <h1>Page Not Found!</h1>
+        <p>{errorDesc}</p>
+      </div>
+    );
+  }
+
+  if (isLoading || Object.keys(selectedProduct).length === 0) {
     return (
       <div className='ui grid container loading'>
-        <div className='lds-ripple'>
+        <div className='lds-ripple' style={{ margin: '0 auto' }}>
           <div></div>
           <div></div>
         </div>
       </div>
     );
   }
+
+  const { title, price, category, description, image } = selectedProduct;
 
   return (
     <section className='ui grid container'>
@@ -60,13 +81,19 @@ const ProductDetail = () => {
               <div
                 className='ui vertical animated button'
                 tabIndex='0'
-                style={{ background: '#e38595', color: 'white' }}
+                style={{
+                  background: '#d3556a',
+                  color: 'white',
+                  marginBottom: '15px',
+                }}
               >
                 <div className='hidden content'>
                   <i className='shop icon'></i>
                 </div>
                 <div className='visible content'>Add to Cart</div>
               </div>
+
+              <Link to='/'> Back To Home</Link>
             </div>
           </div>
         </div>
