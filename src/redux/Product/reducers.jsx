@@ -2,7 +2,8 @@ import actions from './actions';
 
 const initialState = {
   products: [],
-  selectedProduct: null,
+  selectedProduct: {},
+  isLoading: true,
 };
 
 const reducer = (state = initialState, action) => {
@@ -11,6 +12,7 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         products: action.payload,
+        isLoading: false,
       };
     }
 
@@ -18,6 +20,7 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         selectedProduct: action.payload,
+        isLoading: false,
       };
     }
 

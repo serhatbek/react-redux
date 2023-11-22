@@ -2,10 +2,10 @@ import React from 'react';
 
 const Contact = () => {
   return (
-    <div>
+    <section className='ui container'>
       <h2>Contact Page</h2>
       <p>This is the Contact page content.</p>
-    </div>
+    </section>
   );
 };
 

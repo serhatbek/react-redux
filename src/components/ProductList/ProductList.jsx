@@ -6,9 +6,8 @@ import { useEffect } from 'react';
 import { setProducts } from '../../redux/Product/actions';
 
 const ProductList = () => {
-  const { products } = useSelector((state) => state.allProducts);
+  const { products, isLoading } = useSelector((state) => state.allProducts);
   const dispatch = useDispatch();
-
   const fetchProducts = async () => {
     try {
       const response = await axios.get('https://fakestoreapi.com/products');
@@ -22,8 +21,19 @@ const ProductList = () => {
     fetchProducts();
   }, []);
 
+  if (isLoading) {
+    return (
+      <div className='loading'>
+        <div className='lds-ripple'>
+          <div></div>
+          <div></div>
+        </div>
+      </div>
+    );
+  }
+
   return (
-    <section className='ui grid container' style={{ marginTop: '40px' }}>
+    <section className='ui grid container'>
       <div className='column wide'>
         <div className='four ui link cards'>
           {products?.map((product) => {
