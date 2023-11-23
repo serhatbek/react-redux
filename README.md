@@ -1,8 +1,5 @@
-# React + Vite
+# Fake Shop
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+I've developed the Simple Fake Store App as a beginner-friendly web application using popular JavaScript libraries and frameworks like React, Redux, React Router, Redux Saga, and Axios. This project is my educational journey aimed at learning the fundamentals of building a front-end web application that simulates a basic online store experience.
 
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+You can check the live demo .[here](serhatbek.github.io/react-redux/)
