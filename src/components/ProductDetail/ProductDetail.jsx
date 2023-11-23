@@ -1,42 +1,29 @@
-import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  selectProduct,
-  removeSelectedProduct,
-} from '../../redux/Product/actions';
 import { Link } from 'react-router-dom';
+import actions from '../../redux/actions';
 
 const ProductDetail = () => {
   const [isError, setIsError] = useState(false);
   const [errorDesc, setErrorDesc] = useState('');
+  const { productId } = useParams();
+  const dispatch = useDispatch();
   const { selectedProduct, isLoading } = useSelector(
     (state) => state.allProducts
   );
 
-  const { productId } = useParams();
-  const dispatch = useDispatch();
-
-  const fetchProductDetail = async () => {
-    try {
-      const response = await axios.get(
-        `https://fakestoreapi.com/products/${productId}`
-      );
-      dispatch(selectProduct(response?.data));
-    } catch (error) {
-      setIsError(true);
-      setErrorDesc(error.message);
-    }
-  };
+  const productDetail = selectedProduct?.data;
 
   useEffect(() => {
-    if (productId && productId !== '') {
-      fetchProductDetail();
-    }
-
+    dispatch({
+      type: actions.GET_SELECTED_PRODUCT,
+      id: productId,
+    });
     return () => {
-      dispatch(removeSelectedProduct());
+      dispatch({
+        type: actions.REMOVE_SELECTED_PRODUCT,
+      });
     };
   }, [productId]);
 
@@ -49,7 +36,7 @@ const ProductDetail = () => {
     );
   }
 
-  if (isLoading || Object.keys(selectedProduct).length === 0) {
+  if (isLoading) {
     return (
       <div className='ui grid container loading'>
         <div className='lds-ripple' style={{ margin: '0 auto' }}>
@@ -60,7 +47,7 @@ const ProductDetail = () => {
     );
   }
 
-  const { title, price, category, description, image } = selectedProduct;
+  const { title, price, category, description, image } = productDetail || {};
 
   return (
     <section className='ui grid container'>

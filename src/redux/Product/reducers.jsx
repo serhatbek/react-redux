@@ -16,7 +16,7 @@ const reducer = (state = initialState, action) => {
       };
     }
 
-    case actions.SELECTED_PRODUCT: {
+    case actions.SET_SELECTED_PRODUCT: {
       return {
         ...state,
         selectedProduct: action.payload,
